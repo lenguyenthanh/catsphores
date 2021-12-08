@@ -35,7 +35,7 @@ For example, you and Bob are friends, and you want to *guarantee* that you will 
 
 Consider this timeline.
 
-![timeline](images/f1-serialization-with-messages.pgn)
+![timeline](images/f1-serialization-with-messages.png)
 
 The first column is your thread of execution, the second is Bob's. Within a thread we can denote the order of events
 ```
