@@ -31,11 +31,11 @@ lazy val root = project
 addCommandAlias("build", "prepare; test")
 addCommandAlias("testAll", "all test")
 addCommandAlias("prepare", "fix; fmt")
-addCommandAlias("fix", "all main:scalafix test:scalafix")
+addCommandAlias("fix", "all scalafix test:scalafix")
 addCommandAlias(
   "fixCheck",
-  "; main:scalafix --check ; test:scalafix --check",
+  "; scalafix --check ; test:scalafix --check",
 )
-addCommandAlias("fmt", "all root/scalafmtSbt root/scalafmtAll")
-addCommandAlias("fmtCheck", "all root/scalafmtSbtCheck root/scalafmtCheckAll")
+addCommandAlias("fmt", "all scalafmtSbt scalafmtAll")
+addCommandAlias("fmtCheck", "all scalafmtSbtCheck scalafmtCheckAll")
 addCommandAlias("check", "fixCheck; fmtCheck")
