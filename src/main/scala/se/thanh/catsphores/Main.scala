@@ -1,4 +1,4 @@
-package se.thanh.catsphore
+package se.thanh.catsphores
 
 import cats.effect.{IO, IOApp}
 
