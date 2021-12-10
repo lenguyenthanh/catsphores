@@ -1,13 +1,15 @@
 package se.thanh.catsphores.chapter1
 
-import cats.implicits.*
-import cats.effect.{IO, IOApp}
-import cats.effect.ExitCode
-import se.thanh.catsphores.Debug.*
 import scala.concurrent.duration.*
+
 import cats.effect.kernel.Deferred
+import cats.effect.{ExitCode, IO, IOApp}
+import cats.implicits.*
+
+import se.thanh.catsphores.Debug.*
 
 object SerializationWithMessages extends IOApp {
+
   def run(args: List[String]): IO[ExitCode] =
     for {
       call <- Deferred[IO, Unit]
