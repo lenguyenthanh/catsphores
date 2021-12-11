@@ -40,7 +40,7 @@ class BTask[F[_]: Temporal](
   barrier: Deferred[F, Unit],
   signal: Semaphore[F],
 )(
-  implicit F: Console[F]
+  using F: Console[F]
 ) {
 
   def use(): F[Unit] =
@@ -60,7 +60,7 @@ class Barrier[F[_]: Temporal](
   mutex: Deferred[F, Unit],
   signal: Semaphore[F],
 )(
-  implicit F: Console[F]
+  using F: Console[F]
 ) {
 
   def use(): F[Unit] =

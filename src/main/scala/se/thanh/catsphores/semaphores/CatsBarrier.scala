@@ -30,7 +30,7 @@ class CTask[F[_]: Temporal](
   barrier1: CyclicBarrier[F],
   barrier2: CyclicBarrier[F],
 )(
-  implicit F: Console[F]
+  using F: Console[F]
 ) {
 
   def use(): F[Unit] = one().replicateA(repeat).void
