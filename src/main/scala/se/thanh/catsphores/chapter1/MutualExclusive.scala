@@ -6,7 +6,14 @@ import cats.implicits.*
 
 import se.thanh.catsphores.Debug.*
 
-// Mutual exclusive
+/**
+ * Mutual exclusive or Mutex
+ * Events A and B must not happen at the same time.
+ * In this example two threads access the same counter,
+ * they run in parallel and they always change the counter
+ * exclusively
+ */
+
 object MutualExclusive extends IOApp {
 
   def run(args: List[String]): IO[ExitCode] =

@@ -8,6 +8,16 @@ import cats.implicits.*
 
 import se.thanh.catsphores.Debug.*
 
+/**
+ * Serialization with messages
+ * Problem: Alice and Bob want to make sure that Bob eats lunch after Alice.
+ * Solution:
+ * - Alice eats lunch first and then send a message to Bob
+ * - Bob waits for Alice's message before eating lunch.
+ *
+ * This solution is called Serialization with messages
+ * */
+
 object SerializationWithMessages extends IOApp {
 
   def run(args: List[String]): IO[ExitCode] =
