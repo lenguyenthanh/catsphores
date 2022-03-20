@@ -1,4 +1,4 @@
-package se.thanh.catsphores.semaphores
+package se.thanh.catsphores.chapter3
 
 import scala.concurrent.duration.*
 
@@ -9,11 +9,16 @@ import cats.implicits.*
 
 import se.thanh.catsphores.Debug.*
 
-/** Redezvous: The idea is that two threads redezvous at a point of execution and neither is allowed
-  * to proceed until both have arrived.
+/** Rendezvous: The idea is that two threads rendezvous at a specific point of execution and neither
+  * is allowed to proceed until both have arrived.
   *
-  * We want two guarantee that a1 happen before b2 and b1 happen before a2
+  * Problem: We want two guarantee that a1 happen before b2 and b1 happen before a2 Solution: Create
+  * two semaphores, named a and b, and initialize them both to zero. As the names suggest, a
+  * indicates whether Thread A has arrived at the rendezvous, and b likewise.
+  *
+  * Page 13
   */
+
 object Rendezvous extends IOApp {
 
   def run(args: List[String]): IO[ExitCode] =

@@ -1,4 +1,4 @@
-package se.thanh.catsphores.semaphores
+package se.thanh.catsphores.chapter3
 
 import scala.concurrent.duration.*
 
@@ -15,9 +15,11 @@ import cats.{Applicative, Parallel}
   * Otherwise it waits. Similarly, when a follower arrives, it checks for a leader and either
   * proceeds or waits, accordingly.
   *
-  * To make things more interesting, let’s add the additional constraint that each leader can invoke
+  * To make things more interesting, let’s add an additional constraint that each leader can invoke
   * dance concurrently with only one follower, and vice versa. In other words, you got to dance with
-  * the one that brought you
+  * the one that brought you.
+  *
+  * Page 45
   */
 
 object ExclusiveQueue extends IOApp {
@@ -29,8 +31,8 @@ object ExclusiveQueue extends IOApp {
       followerQueue <- Queue.bounded[IO, Unit](1000)
       leaderSignal <- Semaphore[IO](0)
       followerSignal <- Semaphore[IO](0)
-      leaders = Leaders(total, leaderQueue, leaderSignal).one().parReplicateA(total)
-      followers = Followers(total, followerQueue, followerSignal).one().parReplicateA(total)
+      leaders = Leaders(total, leaderQueue, leaderSignal).use()
+      followers = Followers(total, followerQueue, followerSignal).use()
       operator = Operator(leaderQueue, followerQueue, leaderSignal, followerSignal)
         .use()
         .replicateA(total)
@@ -62,18 +64,19 @@ class Leaders[F[_]: Temporal](
   queue: Queue[F, Unit],
   signal: Semaphore[F],
 )(
-  using F: Console[F]
+  using F: Console[F],
+  P: Parallel[F],
 ) {
 
-  def use(): F[Unit] = one().replicateA(number).void
+  def use(): F[Unit] = List.range(0, number).map(once).parSequence.void
 
-  def one(): F[Unit] =
+  def once(no: Int): F[Unit] =
     for {
-      _ <- F.println(s"A leader joined")
-      - <- Temporal[F].sleep(number.millisecond)
+      _ <- F.println(s"Leader $no joined")
+      - <- Temporal[F].sleep(no.second)
       _ <- queue.offer(())
       _ <- signal.acquire
-      _ <- F.println(s"The leader started dancing")
+      _ <- F.println(s"The leader $no started dancing")
     } yield ()
 
 }
@@ -83,17 +86,18 @@ class Followers[F[_]: Temporal](
   queue: Queue[F, Unit],
   signal: Semaphore[F],
 )(
-  using F: Console[F]
+  using F: Console[F],
+  P: Parallel[F],
 ) {
 
-  def use(): F[Unit] = one().replicateA(number).void
+  def use(): F[Unit] = List.range(0, number).map(once).parSequence.void
 
-  def one(): F[Unit] =
+  def once(no: Int): F[Unit] =
     for {
-      _ <- F.println(s"A follower joined")
+      _ <- F.println(s"Follower $no joined")
       _ <- queue.offer(())
       _ <- signal.acquire
-      _ <- F.println(s"The follower started dancing")
+      _ <- F.println(s"The follower $no started dancing")
     } yield ()
 
 }

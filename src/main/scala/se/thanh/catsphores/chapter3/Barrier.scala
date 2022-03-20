@@ -1,4 +1,4 @@
-package se.thanh.catsphores.semaphores
+package se.thanh.catsphores.chapter3
 
 import scala.concurrent.duration.*
 
@@ -18,6 +18,8 @@ import cats.implicits.*
   * threads have executed rendezvous.
   *
   * Our solution is also called preloaded turnstile which allows all threads run concurrently
+  *
+  * Page 21
   */
 
 object Barrier extends IOApp {
@@ -46,6 +48,7 @@ class BTask[F[_]: Temporal](
   def use(): F[Unit] =
     for {
       _ <- F.println(s"Task $number started")
+      - <- Temporal[F].sleep(number.millisecond)
       _ <- signal.release
       y <- signal.available
       _ <- F.println(s"Availability: $y")

@@ -6,13 +6,14 @@ import cats.implicits.*
 
 import se.thanh.catsphores.Debug.*
 
-/**
- * Mutual exclusive or Mutex
- * Events A and B must not happen at the same time.
- * In this example two threads access the same counter,
- * they run in parallel and they always change the counter
- * exclusively
- */
+/** Mutual exclusive or Mutex The mutex guarantees that only one thread accesses the shared variable
+  * at a time.
+  *
+  * Events A and B must not happen at the same time. In this example two threads access the same
+  * counter, they run in parallel and they always change the counter exclusively
+  *
+  * Page 1
+  */
 
 object MutualExclusive extends IOApp {
 

@@ -1,4 +1,4 @@
-package se.thanh.catsphores.semaphores
+package se.thanh.catsphores.chapter3
 
 import scala.concurrent.duration.*
 
@@ -7,11 +7,24 @@ import cats.effect.syntax.all.*
 import cats.effect.{ExitCode, IO, IOApp, Temporal}
 import cats.implicits.*
 
-/** Generalize the previous solution so that it allows multiple threads to run in the critical
-  * section at the same time, but it enforces an upper limit on the number of concurrent threads. In
-  * other words, no more than n threads can run in the critical section at the same time. This
-  * pattern is called a multiplex.
+/** Generalize the previous solution (mutex) so that it allows multiple threads to run in the
+  * critical section at the same time, but it enforces an upper limit on the number of concurrent
+  * threads. In other words, no more than n threads can run in the critical section at the same
+  * time.
+  *
+  * This pattern is called a multiplex.
+  *
+  * In real life, the multiplex problem occurs at busy nightclubs where there is a maximum number of
+  * people allowed in the building at a time, either to maintain fire safety or to create the
+  * illusion of exclusivity.
+  *
+  * In this example we have 6 processes try to access a precous resource which has a upper limit of
+  * number concurrent access is 2. This example is taken from [Semaphore
+  * example](https://typelevel.org/cats-effect/docs/std/semaphore)
+  *
+  * Page 19
   */
+
 object Multiplex extends IOApp {
 
   def run(args: List[String]): IO[ExitCode] = program.as(ExitCode.Success)
