@@ -4,7 +4,7 @@ object Dependencies {
 
   object Cats {
     val catsEffect = "org.typelevel" %% "cats-effect" % "3.3.11"
-    val catsMtl = "org.typelevel" %% "cats-mtl" % "1.2.1"
+    val catsMtl = "org.typelevel" %% "cats-mtl" % "1.3.0"
 
     val all = Seq(catsEffect, catsMtl)
   }
