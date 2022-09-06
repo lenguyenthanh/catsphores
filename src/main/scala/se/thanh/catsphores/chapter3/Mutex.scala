@@ -36,7 +36,7 @@ object Mutex extends IOApp {
       s <- Semaphore[IO](1)
       _ <- increaseBy(s, 1000)
       _ <- IO(count).debug()
-    } yield (ExitCode.Success)
+    } yield ExitCode.Success
 
   def increaseBy(s: Semaphore[IO], repeat: Int) = increase(s).parReplicateA(repeat)
 
@@ -46,7 +46,7 @@ object Mutex extends IOApp {
     .use { _ =>
       for {
         _ <- IO.sleep(1.millisecond)
-        _ = (count = count + 1) // critical section
+        _ = count = count + 1 // critical section
       } yield ()
     }
 
@@ -57,7 +57,7 @@ object Mutex extends IOApp {
     for {
       _ <- s.acquire
       _ <- IO.sleep(1.millisecond)
-      _ = (count = count + 1) // critical section
+      _ = count = count + 1 // critical section
       _ <- s.release
     } yield ()
 
