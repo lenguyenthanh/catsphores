@@ -10,7 +10,7 @@ inThisBuild(
     ),
 
     // Scalafix
-    scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.5.0",
+    scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.6.0",
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision,
   )
