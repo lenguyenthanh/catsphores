@@ -13,7 +13,7 @@ object Dependencies {
     val munit = "org.scalameta" %% "munit" % "1.0.1" % Test
     val munitCatsEffect = "org.typelevel" %% "munit-cats-effect" % "2.0.0" % Test
     val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.16.0" % Test
-    val munitScalaCheck = "org.scalameta" %% "munit-scalacheck" % "0.7.29" % Test
+    val munitScalaCheck = "org.scalameta" %% "munit-scalacheck" % "1.3.0" % Test
 
     val all = Seq(munit, munitScalaCheck, munitCatsEffect, scalaCheck)
   }
