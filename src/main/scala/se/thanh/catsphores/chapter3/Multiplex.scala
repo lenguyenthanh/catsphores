@@ -43,7 +43,12 @@ object Multiplex extends IOApp {
 
 }
 
-class PreciousResource[F[_]: Temporal](name: String, s: Semaphore[F])(implicit F: Console[F]) {
+class PreciousResource[F[_]: Temporal](
+  name: String,
+  s: Semaphore[F],
+)(
+  implicit F: Console[F]
+) {
 
   def use: F[Unit] =
     for {
