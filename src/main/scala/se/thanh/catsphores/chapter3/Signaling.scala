@@ -33,7 +33,11 @@ object Signaling extends IOApp {
       - <- (threadB(s), threadA(s)).parTupled
     } yield ExitCode.Success
 
-  def threadA[F[_]: Temporal](signal: Semaphore[F])(using F: Console[F]): F[Unit] =
+  def threadA[F[_]: Temporal](
+    signal: Semaphore[F]
+  )(
+    using F: Console[F]
+  ): F[Unit] =
     for {
       _ <- F.println("waiting for 1 second")
       _ <- Temporal[F].sleep(1.second)
@@ -43,7 +47,11 @@ object Signaling extends IOApp {
       _ <- signal.release
     } yield ()
 
-  def threadB[F[_]: Monad](signal: Semaphore[F])(using F: Console[F]): F[Unit] =
+  def threadB[F[_]: Monad](
+    signal: Semaphore[F]
+  )(
+    using F: Console[F]
+  ): F[Unit] =
     for {
       _ <- signal.acquire
       _ <- F.println("Happen after a")
